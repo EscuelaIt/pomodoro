@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit'
+import '@dile/ui/components/button/button.js'
 
 // Constantes de configuración
 const DEFAULT_TIME_DISPLAY = '25:00'
@@ -29,31 +30,22 @@ export class PomTimer extends LitElement {
       margin: 20px 0;
     }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      transition: all 0.3s ease;
+    dile-button {
+      --dile-button-padding-y: 10px;
+      --dile-button-padding-x: 20px;
+      --dile-button-font-size: 16px;
     }
 
     .btn-start {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .btn-start:hover {
-      background-color: #45a049;
+      --dile-primary-color: #4CAF50;
+      --dile-on-primary-color: white;
+      --dile-button-hover-background-color: #9fe6a2;
     }
 
     .btn-reset {
-      background-color: #f44336;
-      color: white;
-    }
-
-    .btn-reset:hover {
-      background-color: #da190b;
+      --dile-primary-color: #f44336;
+      --dile-on-primary-color: white;
+      --dile-button-hover-background-color: #e2afab;
     }
   `
 
@@ -70,8 +62,8 @@ export class PomTimer extends LitElement {
     return html`
       <div class="timer">${this.time}</div>
       <div class="button-group">
-        <button class="btn btn-start" @click=${this._handleStart}>Iniciar</button>
-        <button class="btn btn-reset" @click=${this._handleReset}>Reiniciar</button>
+        <dile-button class="btn btn-start" @click=${this._handleStart}>Iniciar</dile-button>
+        <dile-button class="btn btn-reset" @click=${this._handleReset}>Reiniciar</dile-button>
       </div>
     `
   }

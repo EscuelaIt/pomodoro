@@ -44,7 +44,7 @@ export class PomApp extends LitElement {
   render() {
     return html`
       <dile-toast id="appToast" duration=${TOAST_DURATION_MS}></dile-toast>
-      <h1>Pomodoro Timer</h1>
+      
       <pom-timer .time=${this.time} @timer-start=${this._handleStart} @timer-reset=${this._handleReset}></pom-timer>
     `
   }

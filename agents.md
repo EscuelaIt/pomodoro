@@ -8,6 +8,7 @@ Todos los componentes de la aplicación deben tener el prefijo `pom-` y deben es
 
 ## Estándares de Código
 
+- **Siempre usamos Javascript nativo para los componentes Lit**: No usamos sintaxis typescript para Lit.
 - **No usar números mágicos**: Todos los valores constantes deben ser definidos como constantes con nombres descriptivos al inicio del archivo. Esto incluye duraciones, intervalos, números de reintentos, tamaños, etc. Los nombres deben ser claros y en mayúsculas (ej: `POMODORO_DURATION_MINUTES`, `TIMER_INTERVAL_MS`, `SECONDS_PER_MINUTE`).
 
 ## Catálogo de componentes

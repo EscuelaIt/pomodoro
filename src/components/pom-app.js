@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit'
+import '@dile/ui/components/toast/toast.js'
 import './pom-timer.js'
 
 // Constantes de configuración
@@ -6,6 +7,7 @@ const POMODORO_DURATION_MINUTES = 1
 const SECONDS_PER_MINUTE = 60
 const TIMER_INTERVAL_MS = 1000
 const INITIAL_TIME_DISPLAY = `${String(POMODORO_DURATION_MINUTES).padStart(2, '0')}:00`
+const TOAST_DURATION_MS = 3000
 
 export class PomApp extends LitElement {
   static styles = css`
@@ -33,8 +35,15 @@ export class PomApp extends LitElement {
     this.interval = null
   }
 
+  connectedCallback() {
+    super.connectedCallback()
+    this.addEventListener('positive-feedback', this._handlePositiveFeedback.bind(this))
+    this.addEventListener('negative-feedback', this._handleNegativeFeedback.bind(this))
+  }
+
   render() {
     return html`
+      <dile-toast id="appToast" duration=${TOAST_DURATION_MS}></dile-toast>
       <h1>Pomodoro Timer</h1>
       <pom-timer .time=${this.time} @timer-start=${this._handleStart} @timer-reset=${this._handleReset}></pom-timer>
     `
@@ -45,9 +54,11 @@ export class PomApp extends LitElement {
       // Pausar
       clearInterval(this.interval)
       this.isRunning = false
+      this.positiveFeedback('⏸ Timer pausado')
     } else {
       // Iniciar
       this.isRunning = true
+      this.positiveFeedback('▶ Timer iniciado')
       this.interval = setInterval(() => {
         if (this.timeLeft > 0) {
           this.timeLeft--
@@ -66,7 +77,7 @@ export class PomApp extends LitElement {
     this.isRunning = false
     this.timeLeft = POMODORO_DURATION_MINUTES * SECONDS_PER_MINUTE
     this.time = INITIAL_TIME_DISPLAY
-    console.log('Timer reiniciado')
+    this.positiveFeedback('🔄 Timer reiniciado')
   }
 
   _updateTimeDisplay() {
@@ -76,8 +87,29 @@ export class PomApp extends LitElement {
   }
 
   _playNotification() {
-    console.log('¡Tiempo completado!')
-    // Aquí puedes agregar un sonido o notificación visual
+    this.positiveFeedback('✅ ¡Pomodoro completado!')
+  }
+
+  positiveFeedback(message) {
+    const toast = this.shadowRoot.getElementById('appToast')
+    if (toast) {
+      toast.open(message, 'success')
+    }
+  }
+
+  negativeFeedback(message) {
+    const toast = this.shadowRoot.getElementById('appToast')
+    if (toast) {
+      toast.open(message, 'error')
+    }
+  }
+
+  _handlePositiveFeedback(event) {
+    this.positiveFeedback(event.detail.message)
+  }
+
+  _handleNegativeFeedback(event) {
+    this.negativeFeedback(event.detail.message)
   }
 }
 

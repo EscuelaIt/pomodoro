@@ -14,3 +14,7 @@ Todos los componentes de la aplicación deben tener el prefijo `pom-` y deben es
 ## Catálogo de componentes
 
 Cuando uses botones quiero que uses el componente <dile-button> que funciona como un botón nativo del HTML. Solo lo tienes que importar así: `import '@dile/ui/components/button/button.js';`
+
+## Para las conexiones Ajax a API usamos Axios
+
+Preferimos usar la librería Axios para implementar las solicitudes ajax, en vez de fetch.

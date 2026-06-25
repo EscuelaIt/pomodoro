@@ -5,7 +5,7 @@ import './pom-sessions-history.js'
 import { PomodoroSessionService } from '../services/pomodoroSessionService.js'
 
 // Constantes de configuración
-const POMODORO_DURATION_MINUTES = 1
+const POMODORO_DURATION_MINUTES = 25
 const SECONDS_PER_MINUTE = 60
 const TIMER_INTERVAL_MS = 1000
 const INITIAL_TIME_DISPLAY = `${String(POMODORO_DURATION_MINUTES).padStart(2, '0')}:00`

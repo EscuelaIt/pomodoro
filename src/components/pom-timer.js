@@ -29,7 +29,7 @@ export class PomTimer extends LitElement {
 
     .progress-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(20, 1fr);
       gap: 6px;
       margin-bottom: 30px;
       max-width: 100%;
@@ -92,7 +92,7 @@ export class PomTimer extends LitElement {
   }
 
   _getProgressCells() {
-    const TOTAL_CELLS = 25
+    const TOTAL_CELLS = 100
     const elapsed = this.totalSeconds - this.timeLeft
     const cellsToFill = Math.round((elapsed / this.totalSeconds) * TOTAL_CELLS)
     

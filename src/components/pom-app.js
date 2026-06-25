@@ -15,11 +15,16 @@ export class PomApp extends LitElement {
   static styles = css`
     :host {
       display: block;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 600px;
+      padding: 0 20px;
     }
 
-    h1 {
-      text-align: center;
-      margin: 20px 0;
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
     }
   `
 
@@ -49,11 +54,20 @@ export class PomApp extends LitElement {
 
   render() {
     return html`
-      <dile-toast id="appToast" duration=${TOAST_DURATION_MS}></dile-toast>
-      
-      <pom-timer .time=${this.time} @timer-start=${this._handleStart} @timer-reset=${this._handleReset}></pom-timer>
-      
-      <pom-sessions-history .pomodoroService=${this.sessionService}></pom-sessions-history>
+      <div class="app-container">
+        <dile-toast id="appToast" duration=${TOAST_DURATION_MS}></dile-toast>
+        
+        <pom-timer 
+          .time=${this.time} 
+          .timeLeft=${this.timeLeft}
+          .totalSeconds=${POMODORO_DURATION_MINUTES * SECONDS_PER_MINUTE}
+          .isRunning=${this.isRunning}
+          @timer-start=${this._handleStart} 
+          @timer-reset=${this._handleReset}>
+        </pom-timer>
+        
+        <pom-sessions-history .pomodoroService=${this.sessionService}></pom-sessions-history>
+      </div>
     `
   }
 

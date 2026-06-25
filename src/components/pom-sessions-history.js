@@ -16,20 +16,26 @@ export class PomSessionsHistory extends LitElement {
   static styles = css`
     :host {
       display: block;
-      margin-top: 30px;
+      margin-top: 40px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 600px;
+      padding: 0 20px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     .history-container {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 20px;
-      background-color: #f9f9f9;
+      border-top: 2px solid #C1272D;
+      padding-top: 20px;
     }
 
     h2 {
-      margin: 0 0 15px 0;
-      font-size: 18px;
-      color: #333;
+      margin: 0 0 20px 0;
+      font-family: 'Georgia', serif;
+      font-size: 20px;
+      color: #C1272D;
+      font-weight: 600;
+      letter-spacing: -0.01em;
     }
 
     .controls {
@@ -41,44 +47,51 @@ export class PomSessionsHistory extends LitElement {
     table {
       width: 100%;
       border-collapse: collapse;
-      background-color: white;
+      background-color: transparent;
     }
 
     thead {
-      background-color: #f0f0f0;
+      border-bottom: 1px solid #ddd;
     }
 
     th {
-      padding: 12px;
+      padding: 12px 0;
       text-align: left;
-      border-bottom: 2px solid #ddd;
+      border: none;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-weight: 600;
-      color: #333;
+      color: #666;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     td {
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-      color: #666;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #333;
+      font-size: 14px;
     }
 
     tbody tr:hover {
-      background-color: #f5f5f5;
+      background-color: transparent;
     }
 
     .empty-state {
       text-align: center;
       padding: 40px 20px;
-      color: #999;
+      color: #aaa;
+      font-size: 14px;
     }
 
     .error-state {
-      background-color: #fee;
-      border: 1px solid #fcc;
-      border-radius: 4px;
-      padding: 15px;
-      color: #c33;
+      background-color: #fef3f3;
+      border-left: 3px solid #C1272D;
+      padding: 12px;
+      color: #C1272D;
       margin-bottom: 15px;
+      font-size: 13px;
     }
 
     .loading-state {

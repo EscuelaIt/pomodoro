@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit'
 import '@dile/ui/components/button/button.js'
+import '@dile/ui/components/confirm/confirm.js'
 
 // Constantes
 const SESSIONS_REFRESH_INTERVAL_MS = 5000
@@ -110,6 +111,7 @@ export class PomSessionsHistory extends LitElement {
     pomodoroService: { type: Object },
     sessions: { type: Array },
     isLoading: { type: Boolean },
+    isResetting: { type: Boolean },
     error: { type: String }
   }
 
@@ -117,25 +119,43 @@ export class PomSessionsHistory extends LitElement {
     super()
     this.sessions = []
     this.isLoading = false
+    this.isResetting = false
     this.error = null
     this.pomodoroService = null
   }
 
-  connectedCallback() {
-    super.connectedCallback()
+  firstUpdated() {
+    super.firstUpdated()
     this._loadSessions()
+    
+    const confirmDialog = this.shadowRoot.getElementById('resetConfirm')
+    if (confirmDialog) {
+      confirmDialog.addEventListener('dile-confirm-accepted', () => this._handleReset())
+    }
   }
 
   render() {
     return html`
+      <dile-confirm
+        id="resetConfirm"
+        acceptLabel="Sí, resetear"
+        cancelLabel="Cancelar"
+        blocking
+      >
+        <p>¿Estás seguro de que quieres borrar todo el historial de sesiones?</p>
+      </dile-confirm>
+
       <div class="history-container">
         <h2>Historial de Sesiones</h2>
 
         ${this.error ? html`<div class="error-state">${this.error}</div>` : ''}
 
         <div class="controls">
-          <dile-button @click=${this._handleRefresh}>
+          <dile-button @click=${this._handleRefresh} ?disabled=${this.isResetting}>
             ${this.isLoading ? '⏳ Actualizando...' : '🔄 Actualizar'}
+          </dile-button>
+          <dile-button @click=${this._openResetConfirm} ?disabled=${this.isLoading || this.isResetting}>
+            ${this.isResetting ? '♻️ Reseteando...' : '♻️ Reset'}
           </dile-button>
         </div>
 
@@ -192,6 +212,26 @@ export class PomSessionsHistory extends LitElement {
 
   _handleRefresh() {
     this._loadSessions()
+  }
+
+  _openResetConfirm() {
+    this.shadowRoot.getElementById('resetConfirm').open()
+  }
+
+  async _handleReset() {
+    if (!this.pomodoroService) return
+
+    this.isResetting = true
+    this.error = null
+
+    try {
+      await this.pomodoroService.resetSessions()
+      await this._loadSessions()
+    } catch (err) {
+      this.error = err.message
+    } finally {
+      this.isResetting = false
+    }
   }
 
   _formatDate(dateString) {

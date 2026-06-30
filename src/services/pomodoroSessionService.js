@@ -41,6 +41,15 @@ export class PomodoroSessionService {
     }
   }
 
+  async resetSessions() {
+    try {
+      const response = await this.apiClient.delete('/pomodoro-sessions/reset')
+      return response.data
+    } catch (error) {
+      throw this._handleError(error, 'resetear sesiones')
+    }
+  }
+
   _handleError(error, operation) {
     let errorMessage = `Error al ${operation}`
 

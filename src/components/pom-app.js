@@ -10,6 +10,7 @@ const SECONDS_PER_MINUTE = 60
 const TIMER_INTERVAL_MS = 1000
 const INITIAL_TIME_DISPLAY = `${String(POMODORO_DURATION_MINUTES).padStart(2, '0')}:00`
 const TOAST_DURATION_MS = 3000
+const WELCOME_MESSAGE = '👋 ¡Bienvenido al Pomodoro Timer!'
 
 export class PomApp extends LitElement {
   static styles = css`

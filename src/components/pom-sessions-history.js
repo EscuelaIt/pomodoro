@@ -21,7 +21,7 @@ export class PomSessionsHistory extends LitElement {
       margin-left: auto;
       margin-right: auto;
       max-width: 600px;
-      padding: 0 20px;
+      padding: 0 20px 40px 20px;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 

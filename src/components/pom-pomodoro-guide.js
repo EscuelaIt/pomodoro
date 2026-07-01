@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import '@dile/ui/components/button/button.js';
 
 // Constants
 const MODES = {
@@ -154,24 +155,24 @@ export class PomPomodoroGuide extends LitElement {
   renderModeSelector() {
     return html`
       <div class="mode-selector">
-        <button
+        <dile-button
           @click=${() => this.setMode(MODES.TUTORIAL)}
           class=${'mode-btn ' + (this.mode === MODES.TUTORIAL ? 'primary' : '')}
         >
           Tutorial
-        </button>
-        <button
+        </dile-button>
+        <dile-button
           @click=${() => this.setMode(MODES.FAQ)}
           class=${'mode-btn ' + (this.mode === MODES.FAQ ? 'primary' : '')}
         >
           FAQ
-        </button>
-        <button
+        </dile-button>
+        <dile-button
           @click=${() => this.setMode(MODES.COMPARISON)}
           class=${'mode-btn ' + (this.mode === MODES.COMPARISON ? 'primary' : '')}
         >
           Comparativa
-        </button>
+        </dile-button>
       </div>
     `;
   }
@@ -214,13 +215,13 @@ export class PomPomodoroGuide extends LitElement {
         <div class="faq-list">
           ${FAQ_ITEMS.map((item, index) => html`
             <div class="faq-item">
-              <button 
+              <dile-button 
                 class="faq-question"
                 @click=${() => this.toggleFaqItem(index)}
               >
                 <span>${item.question}</span>
                 <span class="faq-icon">${this.expandedFaqIndex === index ? '−' : '+'}</span>
-              </button>
+              </dile-button>
               ${this.expandedFaqIndex === index ? html`
                 <div class="faq-answer">
                   ${item.answer}
@@ -271,13 +272,13 @@ export class PomPomodoroGuide extends LitElement {
     return html`
       ${showNav ? html`
         <div class="navigation">
-          <button
+          <dile-button
             @click=${() => this.previousStep()}
             ?disabled=${this.currentStep === 0}
             class="nav-btn"
           >
             ← Anterior
-          </button>
+          </dile-button>
           <div class="progress-dots">
             ${TUTORIAL_STEPS.map((_, index) => html`
               <span 
@@ -286,13 +287,13 @@ export class PomPomodoroGuide extends LitElement {
               ></span>
             `)}
           </div>
-          <button
+          <dile-button
             @click=${() => this.nextStep()}
             ?disabled=${this.currentStep === maxSteps - 1}
             class="nav-btn"
           >
             Siguiente →
-          </button>
+          </dile-button>
         </div>
       ` : ''}
     `;
@@ -301,8 +302,8 @@ export class PomPomodoroGuide extends LitElement {
   static styles = css`
     :host {
       display: block;
-      --primary-color: #e74c3c;
-      --secondary-color: #3498db;
+      --primary-color: #C1272D;
+      --secondary-color: #2D5016;
       --text-color: #333;
       --bg-light: #f9f9f9;
       --border-color: #e0e0e0;
@@ -330,21 +331,23 @@ export class PomPomodoroGuide extends LitElement {
     }
 
     .mode-btn {
-      padding: 0.75rem 1.5rem;
+      --dile-button-padding-y: 0.75rem;
+      --dile-button-padding-x: 1.5rem;
+      --dile-button-font-size: 1rem;
       font-weight: 600;
-      font-size: 1rem;
       border-radius: 0.375rem;
-      cursor: pointer;
       transition: all 0.2s ease;
-      border: 2px solid var(--border-color);
-      background: white;
-      color: var(--text-color);
     }
 
     .mode-btn.primary {
-      background-color: var(--primary-color);
-      color: white;
-      border-color: var(--primary-color);
+      --dile-primary-color: var(--primary-color);
+      --dile-on-primary-color: white;
+    }
+
+    .mode-btn:not(.primary) {
+      --dile-primary-color: white;
+      --dile-on-primary-color: var(--text-color);
+      border: 2px solid var(--border-color);
     }
 
     .mode-btn:hover {
@@ -353,15 +356,14 @@ export class PomPomodoroGuide extends LitElement {
     }
 
     .nav-btn {
-      padding: 0.75rem 1.5rem;
+      --dile-button-padding-y: 0.75rem;
+      --dile-button-padding-x: 1.5rem;
+      --dile-button-font-size: 1rem;
+      --dile-primary-color: var(--primary-color);
+      --dile-on-primary-color: white;
       font-weight: 600;
-      font-size: 1rem;
       border-radius: 0.375rem;
-      cursor: pointer;
       transition: all 0.2s ease;
-      border: 2px solid var(--primary-color);
-      background: var(--primary-color);
-      color: white;
     }
 
     .nav-btn:hover:not(:disabled) {
@@ -455,13 +457,14 @@ export class PomPomodoroGuide extends LitElement {
 
     .faq-question {
       width: 100%;
-      padding: 1.25rem;
-      background: white;
+      --dile-button-padding-y: 1.25rem;
+      --dile-button-padding-x: 1.25rem;
+      --dile-button-font-size: 1rem;
+      --dile-primary-color: white;
+      --dile-on-primary-color: var(--text-color);
+      font-weight: 600;
       border: none;
       text-align: left;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-color);
       cursor: pointer;
       display: flex;
       justify-content: space-between;

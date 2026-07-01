@@ -53,6 +53,10 @@ export class PomApp extends LitElement {
     this.addEventListener('negative-feedback', this._handleNegativeFeedback.bind(this))
   }
 
+  firstUpdated() {
+    this.positiveFeedback(WELCOME_MESSAGE)
+  }
+
   render() {
     return html`
       <div class="app-container">
